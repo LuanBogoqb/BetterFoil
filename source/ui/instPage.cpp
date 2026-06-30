@@ -11,11 +11,11 @@ namespace inst::ui {
     extern MainApplication *mainApp;
 
     instPage::instPage() : Layout::Layout() {
-        this->SetBackgroundColor(COLOR("#670000FF"));
+        this->SetBackgroundColor(COLOR("#12141AFF"));
         if (std::filesystem::exists(inst::config::appDir + "/background.png")) this->SetBackgroundImage(inst::config::appDir + "/background.png");
-        else this->SetBackgroundImage("romfs:/images/background.jpg");
-        this->topRect = Rectangle::New(0, 0, 1280, 94, COLOR("#170909FF"));
-        this->infoRect = Rectangle::New(0, 95, 1280, 60, COLOR("#17090980"));
+        // dark theme: fall back to the solid background color (drop a background.png to override)
+        this->topRect = Rectangle::New(0, 0, 1280, 94, COLOR("#1B1E27FF"));
+        this->infoRect = Rectangle::New(0, 95, 1280, 60, COLOR("#1B1E27CC"));
         if (inst::config::gayMode) {
             this->titleImage = Image::New(-113, 0, "romfs:/images/logo.png");
             this->appVersionText = TextBlock::New(367, 49, "v" + inst::config::appVersion, 22);
@@ -32,7 +32,7 @@ namespace inst::ui {
         this->installEtaText = TextBlock::New(875, 607, "", 22);
         this->installEtaText->SetColor(COLOR("#FFFFFFFF"));
         this->installBar = pu::ui::elm::ProgressBar::New(10, 600, 850, 40, 100.0f);
-        this->installBar->SetColor(COLOR("#222222FF"));
+        this->installBar->SetColor(COLOR("#4DA3FFFF"));
         if (std::filesystem::exists(inst::config::appDir + "/awoo_inst.png")) this->awooImage = Image::New(410, 190, inst::config::appDir + "/awoo_inst.png");
         else this->awooImage = Image::New(510, 166, "romfs:/images/awoos/7d8a05cddfef6da4901b20d2698d5a71.png");
         this->Add(this->topRect);

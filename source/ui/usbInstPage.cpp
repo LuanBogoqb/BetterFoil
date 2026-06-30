@@ -13,12 +13,12 @@ namespace inst::ui {
     extern MainApplication *mainApp;
 
     usbInstPage::usbInstPage() : Layout::Layout() {
-        this->SetBackgroundColor(COLOR("#670000FF"));
+        this->SetBackgroundColor(COLOR("#12141AFF"));
         if (std::filesystem::exists(inst::config::appDir + "/background.png")) this->SetBackgroundImage(inst::config::appDir + "/background.png");
-        else this->SetBackgroundImage("romfs:/images/background.jpg");
-        this->topRect = Rectangle::New(0, 0, 1280, 94, COLOR("#170909FF"));
-        this->infoRect = Rectangle::New(0, 95, 1280, 60, COLOR("#17090980"));
-        this->botRect = Rectangle::New(0, 660, 1280, 60, COLOR("#17090980"));
+        // dark theme: fall back to the solid background color (drop a background.png to override)
+        this->topRect = Rectangle::New(0, 0, 1280, 94, COLOR("#1B1E27FF"));
+        this->infoRect = Rectangle::New(0, 95, 1280, 60, COLOR("#1B1E27CC"));
+        this->botRect = Rectangle::New(0, 660, 1280, 60, COLOR("#1B1E27CC"));
         if (inst::config::gayMode) {
             this->titleImage = Image::New(-113, 0, "romfs:/images/logo.png");
             this->appVersionText = TextBlock::New(367, 49, "v" + inst::config::appVersion, 22);
@@ -33,8 +33,8 @@ namespace inst::ui {
         this->butText = TextBlock::New(10, 678, "", 24);
         this->butText->SetColor(COLOR("#FFFFFFFF"));
         this->menu = pu::ui::elm::Menu::New(0, 156, 1280, COLOR("#FFFFFF00"), 84, (506 / 84));
-        this->menu->SetOnFocusColor(COLOR("#00000033"));
-        this->menu->SetScrollbarColor(COLOR("#17090980"));
+        this->menu->SetOnFocusColor(COLOR("#4DA3FF33"));
+        this->menu->SetScrollbarColor(COLOR("#1B1E27CC"));
         this->infoImage = Image::New(460, 332, "romfs:/images/icons/usb-connection-waiting.png");
         this->Add(this->topRect);
         this->Add(this->infoRect);
