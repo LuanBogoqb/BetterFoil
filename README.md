@@ -1,29 +1,45 @@
-# Awoo Installer
-A No-Bullshit NSP, NSZ, XCI, and XCZ Installer for Nintendo Switch
+# BetterFoil
 
-![Awoo Installer Main Menu](https://i.imgur.com/q5Qff0R.jpg)
+A NSP, NSZ, XCI, and XCZ installer for jailbroken (CFW / Atmosphère) Nintendo Switch
+consoles — a fork of [Awoo Installer](https://github.com/Huntereb/Awoo-Installer)
+(itself derived from [Adubbz Tinfoil](https://github.com/Adubbz/Tinfoil)) aimed at a
+better UI/UX, a **stay-awake** install mode, and an optional Windows host server with
+metadata/cover-art display.
 
-## Features
-- Installs NSP/NSZ/XCI/XCZ files and split NSP/XCI files from your SD card
-- Installs NSP/NSZ/XCI/XCZ files over LAN or USB from tools such as [NS-USBloader](https://github.com/developersu/ns-usbloader)
-- Installs NSP/NSZ/XCI/XCZ files over the internet by URL or Google Drive
-- Verifies NCAs by header signature before they're installed
-- Installs and manages the latest signature patches quickly and easily
-- Based on [Adubbz Tinfoil](https://github.com/Adubbz/Tinfoil)
-- Uses [XorTroll's Plutonium](https://github.com/XorTroll/Plutonium) for a pretty graphical interface
-- Just werks
+> **Status:** early development (`0.1.0-dev`). This is a fork being rebranded and extended.
+> See `docs/superpowers/specs/` for the design and the project plan.
 
-## Why?
-Because Goldleaf tends to not "Just werk" when installing NSP files. I wanted a *free software* solution that installs, looks pretty, and doesn't make me rip my hair out whenever I want to put software on my Nintendo Switch. Awoo Installer does exactly that. It installs software. That's about it!
+## Goals (what makes it "Better")
+- Cleaner, faster UI/UX on top of the existing Plutonium interface
+- **Stay-awake mode**: keep installing with the screen off; any input wakes the screen
+- Open-source and auditable (GPLv3)
+- *(later)* A **Windows host server** that scans a games folder, reads metadata
+  (name, size, cover) using your own `prod.keys`, and serves them over the network
+- *(later)* Richer install of base game **+ updates + DLC**
 
-If you want to do other things like manage installed tickets, titles, and user accounts, check out [Goldleaf](https://github.com/XorTroll/Goldleaf)!
+## Inherited features (from Awoo / Tinfoil)
+- Installs NSP/NSZ/XCI/XCZ and split files from the SD card
+- Installs over LAN or USB (e.g. with [NS-USBloader](https://github.com/developersu/ns-usbloader))
+- Installs over the internet by URL or Google Drive
+- Verifies NCAs by header signature before installing
+- Manages signature patches
+
+## Keys
+BetterFoil **does not** dump or bundle any console keys. Decryption-dependent features
+require **your own legally obtained `prod.keys`**, supplied by you — same model as
+`nsz`/`hactool`. You must legally own any content you install.
+
+## Building
+Requires **devkitPro** (devkitA64 + libnx) with the Switch portlibs. With the toolchain
+installed and `DEVKITPRO` set, run `make` in this directory to produce `BetterFoil.nro`.
+
+## License
+GPLv3. This is a derivative work — see `LICENSE` and `Tinfoil.LICENSE`, which are preserved
+from the upstream projects. The original Awoo/Tinfoil/Plutonium copyright notices remain in
+place as required by the GPL.
 
 ## Thanks to
-- HookedBehemoth for A LOT of contributions
-- Adubbz and other contributors for [Tinfoil](https://github.com/Adubbz/Tinfoil)
-- XorTroll for [Plutonium](https://github.com/XorTroll/Plutonium) and [Goldleaf](https://github.com/XorTroll/Goldleaf)
-- blawar (wife strangulator) and nicoboss for [NSZ](https://github.com/nicoboss/nsz) support
-- The kind folks at the AtlasNX Discuck (or at least some of them)
-- The also kind folks at the RetroNX Discuck (of no direct involvement)
-- [namako8982](https://www.pixiv.net/member.php?id=14235616) for the Momiji art
-- TheXzoron for being a baka
+- **Huntereb & HookedBehemoth** for [Awoo Installer](https://github.com/Huntereb/Awoo-Installer), the base of this fork
+- **Adubbz** and contributors for [Tinfoil](https://github.com/Adubbz/Tinfoil)
+- **XorTroll** for [Plutonium](https://github.com/XorTroll/Plutonium) and [Goldleaf](https://github.com/XorTroll/Goldleaf)
+- **blawar** and **nicoboss** for [NSZ](https://github.com/nicoboss/nsz) support

@@ -1,5 +1,9 @@
 *.elf
 *.nacp
 *.nro
+*.nso
+*.nsp
+*.map
 build
 .vscode
+.remember/
