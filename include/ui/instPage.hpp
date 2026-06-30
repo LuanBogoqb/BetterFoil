@@ -11,6 +11,7 @@ namespace inst::ui {
             void onInput(u64 Down, u64 Up, u64 Held, pu::ui::Touch Pos);
             TextBlock::Ref pageInfoText;
             TextBlock::Ref installInfoText;
+            TextBlock::Ref installEtaText;
             pu::ui::elm::ProgressBar::Ref installBar;
             Image::Ref awooImage;
             Image::Ref titleImage;

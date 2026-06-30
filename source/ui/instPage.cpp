@@ -1,4 +1,6 @@
 #include <filesystem>
+#include <cstdio>
+#include <switch.h>
 #include "ui/MainApplication.hpp"
 #include "ui/instPage.hpp"
 #include "util/config.hpp"
@@ -27,6 +29,8 @@ namespace inst::ui {
         this->pageInfoText->SetColor(COLOR("#FFFFFFFF"));
         this->installInfoText = TextBlock::New(15, 568, "", 22);
         this->installInfoText->SetColor(COLOR("#FFFFFFFF"));
+        this->installEtaText = TextBlock::New(875, 607, "", 22);
+        this->installEtaText->SetColor(COLOR("#FFFFFFFF"));
         this->installBar = pu::ui::elm::ProgressBar::New(10, 600, 850, 40, 100.0f);
         this->installBar->SetColor(COLOR("#222222FF"));
         if (std::filesystem::exists(inst::config::appDir + "/awoo_inst.png")) this->awooImage = Image::New(410, 190, inst::config::appDir + "/awoo_inst.png");
@@ -38,6 +42,7 @@ namespace inst::ui {
         this->Add(this->pageInfoText);
         this->Add(this->installInfoText);
         this->Add(this->installBar);
+        this->Add(this->installEtaText);
         this->Add(this->awooImage);
         if (inst::config::gayMode) this->awooImage->SetVisible(false);
     }
@@ -53,8 +58,31 @@ namespace inst::ui {
     }
 
     void instPage::setInstBarPerc(double ourPercent){
-        mainApp->instpage->installBar->SetVisible(true);
-        mainApp->instpage->installBar->SetProgress(ourPercent);
+        auto p = mainApp->instpage;
+        p->installBar->SetVisible(true);
+        p->installBar->SetProgress(ourPercent);
+
+        // Per-item ETA: time the current item from its 0% point and extrapolate.
+        static u64 freq = armGetSystemTickFreq();
+        static u64 startTick = 0;
+        static double startPct = -1.0;
+        u64 now = armGetSystemTick();
+        if (ourPercent <= 1.0 || ourPercent < startPct) {
+            startTick = now;
+            startPct = ourPercent;
+            p->installEtaText->SetText("");
+        } else {
+            double elapsed = (double)(now - startTick) / (double)freq;
+            double doneFrac = (ourPercent - startPct) / 100.0;
+            if (doneFrac > 0.01 && elapsed > 0.5) {
+                double remaining = elapsed / doneFrac - elapsed;
+                if (remaining < 0) remaining = 0;
+                int secs = (int)(remaining + 0.5);
+                char buf[40];
+                std::snprintf(buf, sizeof(buf), "%d%%  -  ETA %d:%02d", (int)ourPercent, secs / 60, secs % 60);
+                p->installEtaText->SetText(buf);
+            }
+        }
         mainApp->CallForRender();
     }
 
@@ -65,6 +93,7 @@ namespace inst::ui {
     void instPage::loadInstallScreen(){
         mainApp->instpage->pageInfoText->SetText("");
         mainApp->instpage->installInfoText->SetText("");
+        mainApp->instpage->installEtaText->SetText("");
         mainApp->instpage->installBar->SetProgress(0);
         mainApp->instpage->installBar->SetVisible(false);
         mainApp->instpage->awooImage->SetVisible(!inst::config::gayMode);
