@@ -63,7 +63,8 @@ namespace inst::ui {
         this->usbInstallMenuItem = pu::ui::elm::MenuItem::New("main.menu.usb"_lang);
         this->usbInstallMenuItem->SetColor(COLOR("#FFFFFFFF"));
         this->usbInstallMenuItem->SetIcon("romfs:/images/icons/usb-port.png");
-        this->sigPatchesMenuItem = pu::ui::elm::MenuItem::New("main.menu.sig"_lang);
+        std::string sigStatus = sig::sigPatchesPresent() ? "main.menu.sig_ok"_lang : "main.menu.sig_missing"_lang;
+        this->sigPatchesMenuItem = pu::ui::elm::MenuItem::New("main.menu.sig"_lang + sigStatus);
         this->sigPatchesMenuItem->SetColor(COLOR("#FFFFFFFF"));
         this->sigPatchesMenuItem->SetIcon("romfs:/images/icons/wrench.png");
         this->settingsMenuItem = pu::ui::elm::MenuItem::New("main.menu.set"_lang);

@@ -12,6 +12,10 @@ namespace inst::ui {
 }
 
 namespace sig {
+    bool sigPatchesPresent() {
+        return inst::util::readTextFromFile("sdmc:/atmosphere/exefs_patches/es_patches/patches.txt") != "";
+    }
+
     void installSigPatches () {
         bpcInitialize();
         try {

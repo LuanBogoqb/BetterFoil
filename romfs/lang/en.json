@@ -5,6 +5,8 @@
             "net": "Install over LAN or internet",
             "usb": "Install over USB",
             "sig": "Manage signature patches",
+            "sig_ok": "  -  patches OK",
+            "sig_missing": "  -  patches MISSING",
             "set": "Settings",
             "exit": "Exit"
         },

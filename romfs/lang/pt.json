@@ -5,6 +5,8 @@
             "net": "Instalar através da LAN ou da Internet",
             "usb": "Instalar atráves do USB",
             "sig": "Gerir patches de assinaturas",
+            "sig_ok": "  -  patches OK",
+            "sig_missing": "  -  patches AUSENTES",
             "set": "Definições",
             "exit": "Sair"
         },
