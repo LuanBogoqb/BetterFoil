@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <vector>
 
 namespace inst::config {
@@ -19,6 +20,7 @@ namespace inst::config {
     extern bool autoUpdate;
     extern bool gayMode;
     extern bool usbAck;
+    extern bool stayAwake;
 
     void setConfig();
     void parseConfig();

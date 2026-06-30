@@ -16,6 +16,7 @@ namespace inst::config {
     bool overClock;
     bool usbAck;
     bool validateNCAs;
+    bool stayAwake;
 
     void setConfig() {
         nlohmann::json j = {
@@ -29,7 +30,8 @@ namespace inst::config {
             {"sigPatchesUrl", sigPatchesUrl},
             {"usbAck", usbAck},
             {"validateNCAs", validateNCAs},
-            {"lastNetUrl", lastNetUrl}
+            {"lastNetUrl", lastNetUrl},
+            {"stayAwake", stayAwake}
         };
         std::ofstream file(inst::config::configPath);
         file << std::setw(4) << j << std::endl;
@@ -51,6 +53,8 @@ namespace inst::config {
             usbAck = j["usbAck"].get<bool>();
             validateNCAs = j["validateNCAs"].get<bool>();
             lastNetUrl = j["lastNetUrl"].get<std::string>();
+            // New key: default gracefully so upgrading doesn't wipe existing settings.
+            stayAwake = j.value("stayAwake", true);
         }
         catch (...) {
             // If loading values from the config fails, we just load the defaults and overwrite the old config
@@ -65,6 +69,7 @@ namespace inst::config {
             usbAck = false;
             validateNCAs = true;
             lastNetUrl = "https://";
+            stayAwake = true;
             setConfig();
         }
         if (sigPatchesUrl == "https://github.com/Huntereb/Awoo-Installer/releases/download/SignaturePatches/patches.zip")

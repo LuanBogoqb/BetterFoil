@@ -147,6 +147,7 @@
             "boost_mode": "Enable \"boost mode\" during installations",
             "ask_delete": "Ask to delete original files after installation",
             "auto_update": "Check for updates to Awoo Installer automatically",
+            "stay_awake": "Keep awake (screen off during install, wake on input)",
             "gay_option": "Remove anime",
             "sig_url": "Signature patches source URL: ",
             "language": "Language: ",

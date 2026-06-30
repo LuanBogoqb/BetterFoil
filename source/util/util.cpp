@@ -11,6 +11,7 @@
 #include "util/util.hpp"
 #include "nx/ipc/tin_ipc.h"
 #include "util/config.hpp"
+#include "util/stayAwake.hpp"
 #include "util/curl.hpp"
 #include "ui/MainApplication.hpp"
 #include "util/usb_comms_awoo.h"
@@ -29,9 +30,11 @@ namespace inst::util {
             nxlinkStdio();
         #endif
         awoo_usbCommsInitialize();
+        inst::power::init();
     }
 
     void deinitApp () {
+        inst::power::exit();
         socketExit();
         awoo_usbCommsExit();
     }

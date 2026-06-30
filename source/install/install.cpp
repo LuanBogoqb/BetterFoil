@@ -29,6 +29,7 @@ SOFTWARE.
 
 #include "nx/ncm.hpp"
 #include "util/title_util.hpp"
+#include "util/stayAwake.hpp"
 
 
 // TODO: Check NCA files are present
@@ -39,10 +40,12 @@ namespace tin::install
         m_destStorageId(destStorageId), m_ignoreReqFirmVersion(ignoreReqFirmVersion), m_contentMeta()
     {
         appletSetMediaPlaybackState(true);
+        inst::power::setInstalling(true);
     }
 
     Install::~Install()
     {
+        inst::power::setInstalling(false);
         appletSetMediaPlaybackState(false);
     }
 

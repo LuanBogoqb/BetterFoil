@@ -1,5 +1,6 @@
 #include "ui/MainApplication.hpp"
 #include "util/lang.hpp"
+#include "util/stayAwake.hpp"
 
 namespace inst::ui {
     MainApplication *mainApp;
@@ -22,5 +23,7 @@ namespace inst::ui {
         this->instpage->SetOnInput(std::bind(&instPage::onInput, this->instpage, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
         this->optionspage->SetOnInput(std::bind(&optionsPage::onInput, this->optionspage, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
         this->LoadLayout(this->mainPage);
+        // Per-frame stay-awake/backlight management, app-wide.
+        this->AddThread(inst::power::update);
     }
 }
